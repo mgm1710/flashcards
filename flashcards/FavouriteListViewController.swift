@@ -8,20 +8,27 @@
 
 import UIKit
 
-class FlashListViewController: UIViewController {
-    @IBOutlet weak var flashListView: UITableView!
+class FavouriteListViewController: UIViewController {
+    @IBOutlet weak var favouriteListView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var wordList: [Word] = []
     var searchedWordList: [Word] = []
     var searchActive : Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let db = DatabaseManager.sharedInstance
+//        self.wordList = db.getFavouriteWordList()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let db = DatabaseManager.sharedInstance
-        self.wordList = db.getWordList()
+        self.wordList = db.getFavouriteWordList()
+        self.favouriteListView.reloadData()
     }
 }
 
-extension FlashListViewController: UISearchBarDelegate {
+extension FavouriteListViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 //        self.searchActive = true;
     }
@@ -52,15 +59,15 @@ extension FlashListViewController: UISearchBarDelegate {
         } else {
             self.searchActive = true;
         }
-        self.flashListView.reloadData()
+        self.favouriteListView.reloadData()
     }
     
 }
 
-extension FlashListViewController: UITableViewDelegate, UITableViewDataSource {
+extension FavouriteListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: FlashListViewCell = tableView.dequeueReusableCell(withIdentifier: "flashListViewCellIdentifier", for: indexPath) as! FlashListViewCell
+        let cell: FavouriteListViewCell = tableView.dequeueReusableCell(withIdentifier: "favouriteListViewCellIdentifier", for: indexPath) as! FavouriteListViewCell
         
         if self.searchActive {
             cell.word = self.searchedWordList[indexPath.row]
@@ -91,7 +98,7 @@ extension FlashListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-class FlashListViewCell: UITableViewCell {
+class FavouriteListViewCell: UITableViewCell {
     var word: Word = Word() {
         didSet {
             self.wordLabel.text = word.word
@@ -122,6 +129,7 @@ class FlashListViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.meaningLabel.font = UIFont (name: "HelveticaNeue-UltraLight", size: 14)
+        self.isFavouriteButton.isHidden = true
     }
     
 }

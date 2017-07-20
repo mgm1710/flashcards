@@ -15,7 +15,7 @@
 		90709FE81F1F79CF00D0C1CC /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90709FE71F1F79CF00D0C1CC /* Models.swift */; };
 		90AA04741F1F25C900A6A9E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA04731F1F25C900A6A9E4 /* AppDelegate.swift */; };
 		90AA04761F1F25C900A6A9E4 /* FlashListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA04751F1F25C900A6A9E4 /* FlashListViewController.swift */; };
-		90AA04781F1F25C900A6A9E4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA04771F1F25C900A6A9E4 /* SecondViewController.swift */; };
+		90AA04781F1F25C900A6A9E4 /* FavouriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA04771F1F25C900A6A9E4 /* FavouriteListViewController.swift */; };
 		90AA047B1F1F25C900A6A9E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90AA04791F1F25C900A6A9E4 /* Main.storyboard */; };
 		90AA047D1F1F25C900A6A9E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90AA047C1F1F25C900A6A9E4 /* Assets.xcassets */; };
 		90AA04801F1F25C900A6A9E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90AA047E1F1F25C900A6A9E4 /* LaunchScreen.storyboard */; };
@@ -33,7 +33,7 @@
 		90AA04701F1F25C900A6A9E4 /* flashcards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flashcards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90AA04731F1F25C900A6A9E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90AA04751F1F25C900A6A9E4 /* FlashListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashListViewController.swift; sourceTree = "<group>"; };
-		90AA04771F1F25C900A6A9E4 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		90AA04771F1F25C900A6A9E4 /* FavouriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteListViewController.swift; sourceTree = "<group>"; };
 		90AA047A1F1F25C900A6A9E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90AA047C1F1F25C900A6A9E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90AA047F1F1F25C900A6A9E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 				90AA04871F1F293800A6A9E4 /* resources */,
 				90AA04731F1F25C900A6A9E4 /* AppDelegate.swift */,
 				90AA04751F1F25C900A6A9E4 /* FlashListViewController.swift */,
-				90AA04771F1F25C900A6A9E4 /* SecondViewController.swift */,
+				90AA04771F1F25C900A6A9E4 /* FavouriteListViewController.swift */,
 				90AA04791F1F25C900A6A9E4 /* Main.storyboard */,
 				90AA047C1F1F25C900A6A9E4 /* Assets.xcassets */,
 				90AA047E1F1F25C900A6A9E4 /* LaunchScreen.storyboard */,
@@ -246,7 +246,7 @@
 			files = (
 				90709FE01F1F57FD00D0C1CC /* Constants.swift in Sources */,
 				90AA048A1F1F30A200A6A9E4 /* DatabaseManager.swift in Sources */,
-				90AA04781F1F25C900A6A9E4 /* SecondViewController.swift in Sources */,
+				90AA04781F1F25C900A6A9E4 /* FavouriteListViewController.swift in Sources */,
 				90709FE81F1F79CF00D0C1CC /* Models.swift in Sources */,
 				90AA04741F1F25C900A6A9E4 /* AppDelegate.swift in Sources */,
 				90AA04761F1F25C900A6A9E4 /* FlashListViewController.swift in Sources */,
