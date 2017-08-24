@@ -7,43 +7,37 @@
 //
 
 import UIKit
+import XLPagerTabStrip
 
 class FlashListViewController: UIViewController {
     @IBOutlet weak var flashListView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     var wordList: [Word] = []
     var searchedWordList: [Word] = []
     var searchActive : Bool = false
+    var wordLearningState: WordLearningState = WordLearningState.New
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let db = DatabaseManager.sharedInstance
-        self.wordList = db.getWordList()
+        self.wordList = db.getWordList(forWordLearningState: self.wordLearningState)
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.flashListView.tableFooterView = UIView()
     }
 }
 
-extension FlashListViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        self.searchActive = true;
-    }
+extension FlashListViewController: RootSearchDelegate {
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func rootDidSwipeToVisibility() {
         self.searchActive = false;
+        self.flashListView.reloadData()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchActive = false;
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchActive = false;
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+    func rootSearchBar(_ rootSearchBar: UISearchBar, textDidChange rootSearchText: String) {
+        self.searchActive = true;
         self.searchedWordList = self.wordList.filter({ (word) -> Bool in
             let aWord: Word = word
             
-            let range = (aWord.word as NSString).range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            let range = (aWord.word as NSString).range(of: rootSearchText, options: NSString.CompareOptions.caseInsensitive)
             return range.location != NSNotFound
         })
         
@@ -55,6 +49,17 @@ extension FlashListViewController: UISearchBarDelegate {
         self.flashListView.reloadData()
     }
     
+    func rootSearchBarTextDidEndEditing(_ rootSearchBar: UISearchBar) {
+        self.searchActive = false;
+    }
+    
+    func rootSearchBarCancelButtonClicked(_ rootSearchBar: UISearchBar) {
+        self.searchActive = false;
+    }
+    
+    func rootSearchBarSearchButtonClicked(_ rootSearchBar: UISearchBar) {
+        self.searchActive = false;
+    }
 }
 
 extension FlashListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -65,7 +70,10 @@ extension FlashListViewController: UITableViewDelegate, UITableViewDataSource {
         if self.searchActive {
             cell.word = self.searchedWordList[indexPath.row]
         } else {
-            cell.word = self.wordList[indexPath.row]
+//            let aWord: Word = self.wordList[indexPath.row]
+//            if case self.wordLearningState = aWord.wordLearningState {
+                cell.word = self.wordList[indexPath.row]
+//            }
         }
         return cell
     }
@@ -91,6 +99,19 @@ extension FlashListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension FlashListViewController: IndicatorInfoProvider {
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        switch self.wordLearningState {
+        case WordLearningState.New:
+            return IndicatorInfo(title: "All")
+        case WordLearningState.Learning:
+            return IndicatorInfo(title: "Learning")
+        case WordLearningState.Learnt:
+            return IndicatorInfo(title: "Learnt")
+        }
+    }
+}
+
 class FlashListViewCell: UITableViewCell {
     var word: Word = Word() {
         didSet {
@@ -100,6 +121,17 @@ class FlashListViewCell: UITableViewCell {
             if word.isFavourite {
                 self.isFavouriteButton.setImage(UIImage(named:"star_selected"), for: UIControlState.normal)
             }
+            switch word.wordLearningState {
+                case WordLearningState.New:
+                    self.isFavouriteButton.setImage(UIImage(named:"learning"), for: UIControlState.normal)
+                    break
+                case WordLearningState.Learning:
+                    self.isFavouriteButton.setImage(UIImage(named:"learnt"), for: UIControlState.normal)
+                    break
+                case WordLearningState.Learnt:
+                    self.isFavouriteButton.setImage(UIImage(named:"learning"), for: UIControlState.normal)
+                    break
+            }
             self.meaningLabel.text = word.meaning
             self.meaningLabel.backgroundColor = UIColor.clear
         }
@@ -108,12 +140,28 @@ class FlashListViewCell: UITableViewCell {
     @IBOutlet weak var meaningLabel: UILabel!
     @IBOutlet weak var isFavouriteButton: UIButton!
     
-    @IBAction func isFavouriteTapped(_ sender: Any) {
+    @IBAction func actionButtonTapped (_ sender: Any) {
         let changedWord: Word = word
         changedWord.isFavourite = !word.isFavourite
         self.word = changedWord
         DatabaseManager.sharedInstance.updateFavouriteState(wordId: changedWord.identifier, updatedState: changedWord.isFavourite)
     }
+    
+    @IBAction func isFavouriteTapped(_ sender: Any) {
+        let changedWord: Word = word
+        
+        if case changedWord.wordLearningState = WordLearningState.New {
+            changedWord.wordLearningState = WordLearningState.Learning
+        } else if case changedWord.wordLearningState = WordLearningState.Learning {
+            changedWord.wordLearningState = WordLearningState.Learnt
+        } else if case changedWord.wordLearningState = WordLearningState.Learnt {
+            changedWord.wordLearningState = WordLearningState.Learning
+        }
+        
+        self.word = changedWord
+        DatabaseManager.sharedInstance.updateWordLearningState(wordId: changedWord.identifier, toState: changedWord.wordLearningState)
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

@@ -59,11 +59,19 @@ class DatabaseManager {
         do {
             try db?.run("UPDATE \(Constants.TableName) SET \(Constants.TableColumnIsFavourite) = '\(updatedState ? "1":"0")' WHERE (\(Constants.TableColumnId) = \(wordId))")
         } catch {
-            print("Exception : Databaase Update \(error)")
+            print("Exception : Database Favourite Update \(error)")
         }
     }
     
-    func getWordList() -> [Word] {
+    func updateWordLearningState(wordId: Int, toState: WordLearningState) {
+        do {
+            try db?.run("UPDATE \(Constants.TableName) SET \(Constants.TableColumnWordLearningState) = \(toState.rawValue) WHERE (\(Constants.TableColumnId) = \(wordId))")
+        } catch {
+            print("Exception : Database Word Learning State Update \(error)")
+        }
+    }
+    
+    func getWordList(forWordLearningState: WordLearningState) -> [Word] {
         
         var wordList: [Word] = []
         
@@ -72,6 +80,7 @@ class DatabaseManager {
         let word = Expression<String?>(Constants.TableColumnWord)
         let meaning = Expression<String>(Constants.TableColumnMeaning)
         let isFavourite = Expression<Bool>(Constants.TableColumnIsFavourite)
+        let wordLearningState = Expression<Int>(Constants.TableColumnWordLearningState)
         
         do {
             guard let entries = try db?.prepare(words) else {
@@ -84,7 +93,10 @@ class DatabaseManager {
                 aWord.meaning = entry[meaning]
                 aWord.isFavourite = entry[isFavourite]
                 aWord.identifier = Int(entry[id])
-                wordList.append(aWord)
+                aWord.wordLearningState = WordLearningState(rawValue: Int(entry[wordLearningState]))!
+                if case forWordLearningState = aWord.wordLearningState {
+                    wordList.append(aWord)
+                }
             }
         } catch {
             print("Exception : Word List Reading Error \(error)")
@@ -101,6 +113,7 @@ class DatabaseManager {
         let word = Expression<String?>(Constants.TableColumnWord)
         let meaning = Expression<String>(Constants.TableColumnMeaning)
         let isFavourite = Expression<Bool>(Constants.TableColumnIsFavourite)
+        let wordLearningState = Expression<Int>(Constants.TableColumnWordLearningState)
         
         do {
             guard let entries = try db?.prepare(words) else {
@@ -113,6 +126,8 @@ class DatabaseManager {
                 aWord.meaning = entry[meaning]
                 aWord.isFavourite = entry[isFavourite]
                 aWord.identifier = Int(entry[id])
+                aWord.wordLearningState = WordLearningState(rawValue: Int(entry[wordLearningState]))!
+                
                 if(aWord.isFavourite) {
                     wordList.append(aWord)
                 }

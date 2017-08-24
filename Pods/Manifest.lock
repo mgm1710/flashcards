@@ -3,15 +3,18 @@ PODS:
   - SQLite.swift (0.11.3):
     - SQLite.swift/standard (= 0.11.3)
   - SQLite.swift/standard (0.11.3)
+  - XLPagerTabStrip (7.0.0)
 
 DEPENDENCIES:
   - MBProgressHUD
   - SQLite.swift (~> 0.11)
+  - XLPagerTabStrip (~> 7.0)
 
 SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SQLite.swift: 99b36c22084427f0abbeb957556ce1528cf10bb3
+  XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
 
-PODFILE CHECKSUM: 198b9cdd90f84f8c22946a650e830b8e61fc0c5c
+PODFILE CHECKSUM: 92f975e97f6b44bb288854fb8684edb5a1fd7ede
 
 COCOAPODS: 1.2.0.rc.1

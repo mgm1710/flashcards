@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		483366DD7C6DD7EAEB772BA8 /* Pods_flashcards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72B640B0A566311F9EA2B57 /* Pods_flashcards.framework */; };
+		9001FA951F39CD7A00FE2466 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9001FA941F39CD7A00FE2466 /* RootViewController.swift */; };
 		90709FDE1F1F444100D0C1CC /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 90709FDD1F1F444100D0C1CC /* db.sqlite */; };
 		90709FE01F1F57FD00D0C1CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90709FDF1F1F57FD00D0C1CC /* Constants.swift */; };
 		90709FE21F1F6F3100D0C1CC /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90709FE11F1F6F3100D0C1CC /* star@2x.png */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		6E7978C8F2C5EEA7A4A423C8 /* Pods-flashcards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flashcards.debug.xcconfig"; path = "Pods/Target Support Files/Pods-flashcards/Pods-flashcards.debug.xcconfig"; sourceTree = "<group>"; };
 		8D40A3B2850306427B85DE21 /* Pods-flashcards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flashcards.release.xcconfig"; path = "Pods/Target Support Files/Pods-flashcards/Pods-flashcards.release.xcconfig"; sourceTree = "<group>"; };
+		9001FA941F39CD7A00FE2466 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		90709FDD1F1F444100D0C1CC /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = db.sqlite; path = resources/db.sqlite; sourceTree = "<group>"; };
 		90709FDF1F1F57FD00D0C1CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90709FE11F1F6F3100D0C1CC /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "resources/images/star@2x.png"; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				90AA04871F1F293800A6A9E4 /* resources */,
 				90AA04731F1F25C900A6A9E4 /* AppDelegate.swift */,
+				9001FA941F39CD7A00FE2466 /* RootViewController.swift */,
 				90AA04751F1F25C900A6A9E4 /* FlashListViewController.swift */,
 				90AA04771F1F25C900A6A9E4 /* FavouriteListViewController.swift */,
 				90AA04791F1F25C900A6A9E4 /* Main.storyboard */,
@@ -247,6 +250,7 @@
 				90709FE01F1F57FD00D0C1CC /* Constants.swift in Sources */,
 				90AA048A1F1F30A200A6A9E4 /* DatabaseManager.swift in Sources */,
 				90AA04781F1F25C900A6A9E4 /* FavouriteListViewController.swift in Sources */,
+				9001FA951F39CD7A00FE2466 /* RootViewController.swift in Sources */,
 				90709FE81F1F79CF00D0C1CC /* Models.swift in Sources */,
 				90AA04741F1F25C900A6A9E4 /* AppDelegate.swift in Sources */,
 				90AA04761F1F25C900A6A9E4 /* FlashListViewController.swift in Sources */,

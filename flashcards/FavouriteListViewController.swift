@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import XLPagerTabStrip
 
 class FavouriteListViewController: UIViewController {
     @IBOutlet weak var favouriteListView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     var wordList: [Word] = []
     var searchedWordList: [Word] = []
     var searchActive : Bool = false
@@ -28,29 +28,18 @@ class FavouriteListViewController: UIViewController {
     }
 }
 
-extension FavouriteListViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        self.searchActive = true;
-    }
+extension FavouriteListViewController: RootSearchDelegate {
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func rootDidSwipeToVisibility() {
         self.searchActive = false;
+        self.favouriteListView.reloadData()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchActive = false;
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchActive = false;
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+    func rootSearchBar(_ rootSearchBar: UISearchBar, textDidChange rootSearchText: String) {
         self.searchedWordList = self.wordList.filter({ (word) -> Bool in
             let aWord: Word = word
             
-            let range = (aWord.word as NSString).range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+            let range = (aWord.word as NSString).range(of: rootSearchText, options: NSString.CompareOptions.caseInsensitive)
             return range.location != NSNotFound
         })
         
@@ -62,11 +51,23 @@ extension FavouriteListViewController: UISearchBarDelegate {
         self.favouriteListView.reloadData()
     }
     
+    func rootSearchBarTextDidEndEditing(_ rootSearchBar: UISearchBar) {
+        self.searchActive = false;
+    }
+    
+    func rootSearchBarCancelButtonClicked(_ rootSearchBar: UISearchBar) {
+        self.searchActive = false;
+    }
+    
+    func rootSearchBarSearchButtonClicked(_ rootSearchBar: UISearchBar) {
+        self.searchActive = false;
+    }
+    
 }
 
 extension FavouriteListViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {    
         let cell: FavouriteListViewCell = tableView.dequeueReusableCell(withIdentifier: "favouriteListViewCellIdentifier", for: indexPath) as! FavouriteListViewCell
         
         if self.searchActive {
@@ -95,6 +96,12 @@ extension FavouriteListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension;
+    }
+}
+
+extension FavouriteListViewController: IndicatorInfoProvider {
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return IndicatorInfo(title: "Favourite List")
     }
 }
 

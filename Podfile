@@ -9,5 +9,6 @@ target 'flashcards' do
 #    pod 'GRDB.swift'
     pod 'MBProgressHUD'
     pod 'SQLite.swift', '~> 0.11'
+    pod 'XLPagerTabStrip', '~> 7.0'
 
 end

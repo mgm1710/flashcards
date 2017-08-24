@@ -13,11 +13,13 @@ class Word {
     var meaning: String
     var isFavourite: Bool
     var identifier: Int
+    var wordLearningState: WordLearningState
     
     init() {
         word = ""
         meaning = ""
         isFavourite = false
         identifier = -1
+        wordLearningState = WordLearningState(rawValue: 0)!
     }
 }

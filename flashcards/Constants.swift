@@ -15,4 +15,5 @@ struct Constants {
     static let TableColumnWord = "word"
     static let TableColumnMeaning = "meaning"
     static let TableColumnIsFavourite = "isfavourite"
+    static let TableColumnWordLearningState = "wordlearningstate"
 }
